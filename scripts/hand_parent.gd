@@ -7,6 +7,8 @@ const SEGMENT = preload("uid://o4q8tofjf0vj")
 var origin := Vector3.ZERO
 var has_origin := false
 var connections = [
+	Vector2i(0,9),
+	Vector2i(0,13),
 	Vector2i(0,1),
 	Vector2i(1,2),
 	Vector2i(2,3),
