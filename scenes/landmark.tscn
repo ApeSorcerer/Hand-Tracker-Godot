@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://csy1l3b57iiiq"]
+
+[ext_resource type="Script" uid="uid://clhthk0e71tep" path="res://scripts/landmark.gd" id="1_hek36"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lhvf8"]
+albedo_color = Color(1, 0.047058824, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_tptha"]
+material = SubResource("StandardMaterial3D_lhvf8")
+radius = 0.03
+height = 0.06
+
+[node name="landmark" type="Node3D"]
+script = ExtResource("1_hek36")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_tptha")
+skeleton = NodePath("")

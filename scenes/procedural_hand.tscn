@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://5o3n6j00ljwy"]
+
+[ext_resource type="PackedScene" uid="uid://dko337mfmspf2" path="res://scenes/bone_segment.tscn" id="1_for1f"]
+[ext_resource type="Script" uid="uid://c8xjpthrpy03n" path="res://scripts/procedural_hand.gd" id="1_s012y"]
+[ext_resource type="PackedScene" uid="uid://bc6nbtieyb4tp" path="res://palm.tscn" id="3_r5dc6"]
+
+[node name="Procedural Hand" type="Node3D"]
+script = ExtResource("1_s012y")
+
+[node name="Palm" parent="." instance=ExtResource("3_r5dc6")]
+visible = false
+
+[node name="Wrist" type="Node3D" parent="."]
+
+[node name="Thumb1" parent="." groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 1
+child_index = 2
+
+[node name="Thumb2" parent="Thumb1" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 2
+child_index = 3
+
+[node name="Thumb3" parent="Thumb1/Thumb2" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 3
+child_index = 4
+
+[node name="Index1" parent="." groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 5
+child_index = 6
+
+[node name="Index2" parent="Index1" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 6
+child_index = 7
+
+[node name="Index3" parent="Index1/Index2" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 7
+child_index = 8
+
+[node name="Ring1" parent="." groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 13
+child_index = 14
+
+[node name="Ring2" parent="Ring1" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 14
+child_index = 15
+
+[node name="Ring3" parent="Ring1/Ring2" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 15
+child_index = 16
+
+[node name="Middle1" parent="." groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 9
+child_index = 10
+
+[node name="Middle2" parent="Middle1" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 10
+child_index = 11
+
+[node name="Middle3" parent="Middle1/Middle2" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 11
+child_index = 12
+
+[node name="Pinkie1" parent="." groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 17
+child_index = 18
+
+[node name="Pinkie2" parent="Pinkie1" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 18
+child_index = 19
+
+[node name="Pinkie3" parent="Pinkie1/Pinkie2" groups=["bones"] instance=ExtResource("1_for1f")]
+self_index = 19
+child_index = 20
