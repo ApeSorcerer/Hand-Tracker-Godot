@@ -7,8 +7,8 @@ albedo_color = Color(1, 0.047058824, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_tptha"]
 material = SubResource("StandardMaterial3D_lhvf8")
-radius = 0.03
-height = 0.06
+radius = 0.01
+height = 0.02
 
 [node name="landmark" type="Node3D"]
 script = ExtResource("1_hek36")

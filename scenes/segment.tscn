@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://o4q8tofjf0vj"]
+
+[ext_resource type="Script" uid="uid://dntxgqm3ktjy0" path="res://segment.gd" id="1_th87o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_th87o"]
+albedo_color = Color(0.9113316, 0.66314095, 0.6197254, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ekkcu"]
+material = SubResource("StandardMaterial3D_th87o")
+radius = 1.0
+
+[node name="Segment" type="Node3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+script = ExtResource("1_th87o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ekkcu")
