@@ -4,33 +4,30 @@ var server : UDPServer
 var json : JSON
 const HAND_PARENT = preload("uid://baigd2vgk7eik")
 
-@onready var camera_3d: Camera3D = $Camera3D
-
-const MAX_HANDS = 1
+#Config
+const MAX_HANDS = 1 #should be same as python script
 const MOVEMENT_MULTIPLIER := Vector3(2, 2, 1)
+var TARGET_SIZE = 0.2
+
 var landmarkScenes = []
 var hands : Array[Hand]
 var smoothed := {}
-func smooth(idx, value, alpha := 0.8): 
-	if not smoothed.has(idx): 
-		smoothed[idx] = value 
-		smoothed[idx] = smoothed[idx].lerp(value, alpha) 
+
+func smooth(idx, value, alpha := 0.2): # Lower alpha = smoother
+	if not smoothed.has(idx):
+		smoothed[idx] = value
+	else:
+		smoothed[idx] = smoothed[idx].lerp(value, alpha)
 	return smoothed[idx]
 func _ready() -> void:
 	server = UDPServer.new()
-	server.listen(4242)
+	server.listen(4242) #must be the same as python script port
 	json = JSON.new()
 	for i in range(MAX_HANDS):
 		var thisHand = HAND_PARENT.instantiate()
 		add_child(thisHand)
-		thisHand.global_position = Vector3(10, 10, 10)
+		thisHand.global_position = Vector3(10, 10, 10) #arbitrary
 		hands.append(thisHand)
-
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_released("switch"):
-		camera_3d.global_position.z = -camera_3d.global_position.z
-		camera_3d.global_rotation.y = -180 if camera_3d.global_rotation.y==0 else 0
 
 func _process(delta: float) -> void:
 	server.poll()
@@ -46,15 +43,17 @@ func _process(delta: float) -> void:
 				var thisHandNode = hands[handid-1]
 				var landmarks = hand["landmarks"]
 				
+
+				var indexf = landmarks[5] #used for gauging distance
+				var pinkie = landmarks[17]
+				var indexf_pos = Vector3(-indexf["x"], -indexf["y"], indexf["z"])
+				var pinkie_pos = Vector3(-pinkie["x"], -pinkie["y"], pinkie["z"])
+				
 				var wrist = landmarks[0]
-				var middle = landmarks[9]
-				
 				var wrist_pos = Vector3(-wrist["x"], -wrist["y"], wrist["z"])
-				var middle_pos = Vector3(-middle["x"], -middle["y"], middle["z"])
 				
-				var current_size = wrist_pos.distance_to(middle_pos)
-				var target_size = 0.2
-				var scale = target_size / current_size
+				var current_size = indexf_pos.distance_to(pinkie_pos)
+				var scale = TARGET_SIZE / current_size
 				var index = 0
 				for landmark in landmarks:
 					var pos = Vector3(
@@ -73,5 +72,6 @@ func _process(delta: float) -> void:
 				thisHandNode.global_position.z = -current_size * 5.0 * MOVEMENT_MULTIPLIER.z
 				thisHandNode.global_position.x = ref.x * MOVEMENT_MULTIPLIER.x
 				thisHandNode.global_position.y = ref.y * MOVEMENT_MULTIPLIER.y
+
 
 			

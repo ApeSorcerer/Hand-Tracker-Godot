@@ -24,3 +24,6 @@ skeleton = NodePath("../MeshInstance3D")
 transform = Transform3D(0.24046457, 0, 0, 0, 2.4916623, 0, 0, 0, 3.806701, 0.89823544, 0, 0)
 visible = false
 mesh = SubResource("BoxMesh_twpsu")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.8741212, 0)
