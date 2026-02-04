@@ -13,7 +13,7 @@ var landmarkScenes = []
 var hands : Array[Hand]
 var smoothed := {}
 
-func smooth(idx, value, alpha := 0.2): # Lower alpha = smoother
+func smooth(idx, value, alpha := 0.6): # Lower alpha = smoother
 	if not smoothed.has(idx):
 		smoothed[idx] = value
 	else:
@@ -62,16 +62,21 @@ func _process(delta: float) -> void:
 						landmark["z"]
 					)
 					var local = (pos - wrist_pos) * scale
-					smooth(index, local)
+					local = smooth(index, local)
 					thisHandNode.landmarkScenes[index].position = local
 					index+=1
 				if not thisHandNode.has_origin:
 					thisHandNode.origin = wrist_pos
 					thisHandNode.has_origin = true
+				#offset value is current wristpos - original wrist pos
 				var ref = wrist_pos - thisHandNode.origin
-				thisHandNode.global_position.z = -current_size * 5.0 * MOVEMENT_MULTIPLIER.z
-				thisHandNode.global_position.x = ref.x * MOVEMENT_MULTIPLIER.x
-				thisHandNode.global_position.y = ref.y * MOVEMENT_MULTIPLIER.y
-
+				var targetPos : Vector3
+				targetPos.x = ref.x * MOVEMENT_MULTIPLIER.x
+				targetPos.y = ref.y * MOVEMENT_MULTIPLIER.y
+				targetPos.z = -current_size * 5.0 * MOVEMENT_MULTIPLIER.z
+				thisHandNode.global_position = thisHandNode.global_position.lerp(
+					targetPos,
+					0.2 #smooth value, lower = slower
+				)
 
 			

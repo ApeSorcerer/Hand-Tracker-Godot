@@ -61,4 +61,4 @@ switch={
 [rendering]
 
 renderer/rendering_method="mobile"
-environment/defaults/default_clear_color=Color(0.45425445, 0.75372416, 0.98270553, 1)
+environment/defaults/default_clear_color=Color(0.4767292, 0.7349617, 0.9305704, 1)
